@@ -25,15 +25,13 @@ namespace WordTest
             Document doc = app.Documents.Open("D:\\Test.docx");
             doc.ActiveWindow.Visible = true;
             Range range = doc.Range();
-            range.Font.Size = 14;
-            range.Font.Name = "微软雅黑";
-            range.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
-            range.Bold = 10;
-            range.Underline = Microsoft.Office.Interop.Word.WdUnderline.wdUnderlineDotDash;
-            range.Select();
+            Console.WriteLine(range.Text.ToString());
+            range = doc.Range(4, 10);
+            range.Text = "新?的Ì?测a试º?文?档Ì¦Ì。¡ê。¡ê";
             doc.Save();
-            //app.Quit();
+            app.Quit();
             app = null;
+
         }
     }
 }
