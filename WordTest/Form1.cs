@@ -20,37 +20,27 @@ namespace WordTest
         private void button1_Click(object sender, EventArgs e)
         {
             Microsoft.Office.Interop.Word.Application app = new Microsoft.Office.Interop.Word.Application();
-            string version = app.Version;
-            Console.WriteLine(version);
             Document doc = app.Documents.Add("D:\\Test.docx");
+            app=doc.Application;
             doc.ActiveWindow.Visible = true;
             foreach (Bookmark bk in doc.Bookmarks)
             {
-                bk.Range.Text = GetStrByBookmarkName(bk.Name);
+                if (bk.Name == "name")
+                {
+                    bk.Range.Text = "Hyman";
+                }
+                else if (bk.Name == "picture")
+                {
+                    bk.Select();
+                    Selection sel = app.Selection;
+                    sel.InlineShapes.AddPicture("D:\\Test.jpg");
+                }
+               
            }
+            
             doc.SaveAs("E:\\Test.docx");
             app.Quit();
         }
 
-        private string GetStrByBookmarkName(string name)
-        {
-            string str = string.Empty;
-            switch (name)
-            {
-                case "name":
-                    str = "Hyman";
-                    break;
-                case "six":
-                    str="男";
-                    break;
-                case "job":
-                    str = "软件工程师";
-                    break;
-                case "date":
-                    str = DateTime.Now.ToString();
-                    break;
-            }
-            return str;
-        }
     }
 }
