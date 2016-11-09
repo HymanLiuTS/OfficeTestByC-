@@ -22,19 +22,35 @@ namespace WordTest
             Microsoft.Office.Interop.Word.Application app = new Microsoft.Office.Interop.Word.Application();
             string version = app.Version;
             Console.WriteLine(version);
-            Document doc = app.Documents.Open("D:\\Test.docx");
+            Document doc = app.Documents.Add("D:\\Test.docx");
             doc.ActiveWindow.Visible = true;
-            Range range = doc.Range();
-            range.Font.Size = 14;
-            range.Font.Name = "微软雅黑";
-            range.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
-            range.Bold = 10;
-            range.Underline = Microsoft.Office.Interop.Word.WdUnderline.wdUnderlineDotDash;
-            range.Select();
-            doc.Save();
-            //app.Quit();
-            app = null;
+            foreach (Bookmark bk in doc.Bookmarks)
+            {
+                bk.Range.Text = GetStrByBookmarkName(bk.Name);
+           }
+            doc.SaveAs("E:\\Test.docx");
+            app.Quit();
+        }
 
+        private string GetStrByBookmarkName(string name)
+        {
+            string str = string.Empty;
+            switch (name)
+            {
+                case "name":
+                    str = "Hyman";
+                    break;
+                case "six":
+                    str="男";
+                    break;
+                case "job":
+                    str = "软件工程师";
+                    break;
+                case "date":
+                    str = DateTime.Now.ToString();
+                    break;
+            }
+            return str;
         }
     }
 }

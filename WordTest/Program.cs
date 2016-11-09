@@ -19,12 +19,12 @@ namespace WordTest
         [STAThread]
         static void Main()
         {
-            AllocConsole();
-            Console.OutputEncoding = System.Text.Encoding.Default;
+            //AllocConsole();
+            //Console.OutputEncoding = System.Text.Encoding.Default;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
-            FreeConsole();
+            //FreeConsole();
         }
     }
 }
