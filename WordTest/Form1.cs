@@ -25,17 +25,19 @@ namespace WordTest
             doc.ActiveWindow.Visible = true;
             foreach (Bookmark bk in doc.Bookmarks)
             {
-                if (bk.Name == "name")
+                if (bk.Name == "marks")
                 {
-                    bk.Range.Text = "Hyman";
+                    Range range = bk.Range;
+                    range.Tables.Add(range,3,2);
+                    Table tb = range.Tables[1];
+                    tb.set_Style("网格型");
+                    tb.Cell(1, 1).Range.Text = "姓名";
+                    tb.Cell(1, 2).Range.Text = "成绩";
+                    tb.Cell(2, 1).Range.Text = "张三";
+                    tb.Cell(2, 2).Range.Text = "89";
+                    tb.Cell(3, 1).Range.Text = "李四";
+                    tb.Cell(3, 2).Range.Text = "98";  
                 }
-                else if (bk.Name == "picture")
-                {
-                    bk.Select();
-                    Selection sel = app.Selection;
-                    sel.InlineShapes.AddPicture("D:\\Test.jpg");
-                }
-               
            }
             
             doc.SaveAs("E:\\Test.docx");
