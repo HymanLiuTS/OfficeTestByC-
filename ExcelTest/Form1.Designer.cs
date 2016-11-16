@@ -1,4 +1,4 @@
-﻿namespace WordTest
+﻿namespace ExcelTest
 {
     partial class Form1
     {

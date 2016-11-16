@@ -4,7 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 
-namespace WordTest
+namespace ExcelTest
 {
     static class Program
     {
