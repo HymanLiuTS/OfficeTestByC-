@@ -1,8 +1,8 @@
 ﻿//////////////////////////////////////////////////////////////////////////
 //////File: Form1.cs
 //////Author: Hyman
-//////Date: 2016/11/17
-//////Description: 《C#中操作Excel（3）—— 向Excel中插入文本和图片》源代码
+//////Date: 2016/11/18
+//////Description: 《 C#中操作Excel（4）—— 向Excel中插入图表的两种方式》源代码
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
 
@@ -59,28 +59,28 @@ namespace ExcelTest
             {
                 for (int j = 0; j < dt.Columns.Count;j++ )
                 {
+                    
                     range[j+1][i+1] = dt.Rows[i][j];
                 }
             }
-            /*设置字体*/
-            range.Font.Name = "微软雅黑";
-            range.Font.Bold = true;
-            /*合并单元格*/
-            Range range1 = sheet.get_Range("B1", "C1");
-            range1.Merge();
-            range1[1][1] = "成绩单";
-            /*设置表格框线*/
-            range.Borders.LineStyle = Microsoft.Office.Interop.Excel.XlLineStyle.xlDash;
-            /*设置居中*/
-            range.VerticalAlignment = Microsoft.Office.Interop.Excel.XlVAlign.xlVAlignCenter;
-            range.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlVAlign.xlVAlignCenter;
-            /*插入图片*/
-            range1.Select();
-            sheet.Shapes.AddPicture("D:\\Test.jpg", MsoTriState.msoFalse,MsoTriState.msoTrue, 10, 10, 150, 150); 
+            /*插入和sheet同级别的chart*/
+            Chart chart = book.Charts.Add();
+            /*设置表格的数据源*/
+            chart.SetSourceData(range);
+
+            /*插入sheet的子图表*/
+            Microsoft.Office.Interop.Excel.Shape shape = sheet.Shapes.AddChart();
+            /*设置表格的数据源*/
+            chart = shape.Chart;
+            chart.SetSourceData(range);
+
+         
+
+           
             /*保存*/
-            book.SaveAs("E:\\Test.xlsx ");
+            //book.SaveAs("E:\\Test.xlsx ");
             /*退出*/
-            app.Quit();
+            //app.Quit();
         }
 
     }
